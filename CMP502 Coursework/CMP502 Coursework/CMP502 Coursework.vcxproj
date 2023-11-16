@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\wuyij\Documents\GitHub\DirectXTK\Inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,12 +132,65 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\DirectXTK\Src\AlignedNew.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\Bezier.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\BinaryReader.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\DDS.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\DemandCreate.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\EffectCommon.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\Geometry.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\LoaderHelpers.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\pch.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\PlatformHelpers.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\SDKMesh.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\SharedResourcePool.h" />
+    <ClInclude Include="..\..\..\DirectXTK\Src\vbo.h" />
     <ClInclude Include="CMP502 Coursework.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\DirectXTK\Src\AlphaTestEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\BasicEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\BasicPostProcess.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\BinaryReader.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\BufferHelpers.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\CommonStates.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DDSTextureLoader.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DebugEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DGSLEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DGSLEffectFactory.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DirectXHelpers.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DualPostProcess.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\DualTextureEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\EffectCommon.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\EffectFactory.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\EnvironmentMapEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\GamePad.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\GeometricPrimitive.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\Geometry.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\GraphicsMemory.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\Keyboard.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\Model.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\ModelLoadCMO.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\ModelLoadSDKMESH.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\ModelLoadVBO.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\Mouse.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\NormalMapEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\PBREffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\PBREffectFactory.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\pch.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\PrimitiveBatch.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\ScreenGrab.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\SimpleMath.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\SkinnedEffect.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\SpriteBatch.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\SpriteFont.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\ToneMapPostProcess.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\VertexTypes.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\WICTextureLoader.cpp" />
+    <ClCompile Include="..\..\..\DirectXTK\Src\XboxDDSTextureLoader.cpp" />
     <ClCompile Include="CMP502 Coursework.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +199,9 @@
   <ItemGroup>
     <Image Include="CMP502 Coursework.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\DirectXTK\Src\TeapotData.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
