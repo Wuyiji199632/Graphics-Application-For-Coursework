@@ -1,3 +1,0 @@
-﻿  DirectXTutorialProject.cpp
-MSVCRT.lib(exe_main.obj) : error LNK2001: unresolved external symbol main
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXTutorialProject\x64\Release\DirectXTutorialProject.exe : fatal error LNK1120: 1 unresolved externals

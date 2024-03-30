@@ -1,32 +1,10 @@
-/*MIT License
-
-C++ 3D Game Tutorial Series (https://github.com/PardCode/CPP-3D-Game-Tutorial-Series)
-
-Copyright (c) 2019-2022, PardCode
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.*/
 
 #include "DeviceContext.h"
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "ConstantBuffer.h"
 
 DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) :m_device_context(device_context)
 {
@@ -47,6 +25,21 @@ void DeviceContext::setVertexBuffer(VertexBuffer* vertex_buffer)
 	m_device_context->IASetInputLayout(vertex_buffer->m_layout);
 }
 
+void DeviceContext::setIndexBuffer(IndexBuffer* index_buffer)
+{
+	m_device_context->IASetIndexBuffer(index_buffer->m_buffer, DXGI_FORMAT_R32_UINT, 0);
+}
+
+void DeviceContext::setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer)
+{
+	m_device_context->VSSetConstantBuffers(0, 1, &buffer->m_buffer);
+}
+
+void DeviceContext::setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer)
+{
+	m_device_context->PSSetConstantBuffers(0, 1, &buffer->m_buffer);
+}
+
 void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -57,6 +50,12 @@ void DeviceContext::drawTriangleStrip(UINT vertex_count, UINT start_vertex_index
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	m_device_context->Draw(vertex_count, start_vertex_index);
+}
+
+void DeviceContext::drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location)
+{
+	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_device_context->DrawIndexed(index_count, start_index_location, start_vertex_index);
 }
 
 void DeviceContext::setViewportSize(UINT width, UINT height)

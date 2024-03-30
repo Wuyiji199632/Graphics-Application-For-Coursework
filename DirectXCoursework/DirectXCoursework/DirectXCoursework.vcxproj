@@ -134,22 +134,36 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h" />
+    <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="InputListener.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="Vector3D.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="InputListener.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
