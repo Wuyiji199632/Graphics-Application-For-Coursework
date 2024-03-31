@@ -9,7 +9,8 @@ class VertexShader;
 class PixelShader;
 class RenderSystem;
 class GraphicsEngine;
-
+class Resource;
+class ResourceManager;
 
 typedef std::shared_ptr<SwapChain> SwapChainPtr;
 
@@ -24,6 +25,11 @@ typedef std::shared_ptr<ConstantBuffer> ConstantBufferPtr;
 typedef std::shared_ptr<VertexShader> VertexShaderPtr;
 
 typedef std::shared_ptr<PixelShader> PixelShaderPtr;
+
+typedef std::shared_ptr<Resource> ResourcePtr;
+
+typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
+
 
 
 
