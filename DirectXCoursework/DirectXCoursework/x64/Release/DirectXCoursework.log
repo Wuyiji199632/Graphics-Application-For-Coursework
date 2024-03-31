@@ -1,27 +1,14 @@
 ﻿  AppWindow.cpp
 C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(46,30): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(250,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
-  Matrix4x4.cpp
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(68,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(69,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(70,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(71,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(76,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(77,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(78,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(79,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(84,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(85,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(86,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(87,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(131,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(132,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(133,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(134,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(157,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(192,128): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(241,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
+  ConstantBuffer.cpp
+  DeviceContext.cpp
+  GraphicsEngine.cpp
+  RenderSystem.cpp
+  main.cpp
   Generating code
-  5 of 321 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  Compiler switch has changed, fall back to full compilation.
+  All 302 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   DirectXCoursework.vcxproj -> C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\DirectXCoursework.exe
