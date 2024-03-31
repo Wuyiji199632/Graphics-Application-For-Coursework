@@ -57,13 +57,10 @@ bool SwapChain::present(bool vsync)
 	return true;
 }
 
-bool SwapChain::release()
-{
-	m_swap_chain->Release();
-	delete this;
-	return true;
-}
+
 
 SwapChain::~SwapChain()
 {
+	m_rtv->Release();
+	m_swap_chain->Release();
 }

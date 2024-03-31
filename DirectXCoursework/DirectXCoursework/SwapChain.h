@@ -12,8 +12,7 @@ public:
 
 	bool present(bool vsync);
 
-	//Release the swap chain
-	bool release();
+	
 	~SwapChain();
 private:
 	IDXGISwapChain* m_swap_chain;

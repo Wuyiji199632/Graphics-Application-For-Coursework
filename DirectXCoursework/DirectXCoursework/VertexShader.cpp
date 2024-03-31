@@ -10,11 +10,7 @@ VertexShader::VertexShader(const void* shader_byte_code, size_t byte_code_size, 
 		throw std::exception("VertexShader not created successfully");
 }
 
-void VertexShader::release()
-{
-	m_vs->Release();
-	delete this;
-}
+
 
 bool VertexShader::init(const void* shader_byte_code, size_t byte_code_size)
 {
@@ -28,6 +24,7 @@ bool VertexShader::init(const void* shader_byte_code, size_t byte_code_size)
 
 VertexShader::~VertexShader()
 {
+	m_vs->Release();
 }
 
 

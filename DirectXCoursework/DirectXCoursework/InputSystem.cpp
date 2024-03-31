@@ -1,12 +1,13 @@
 #include "InputSystem.h"
 
-
+InputSystem* InputSystem::m_system = nullptr;
 InputSystem::InputSystem()
 {
 }
 
 InputSystem::~InputSystem()
 {
+	InputSystem::m_system = nullptr;
 }
 
 void InputSystem::update()
@@ -110,8 +111,19 @@ void InputSystem::showCursor(bool show)
 
 InputSystem* InputSystem::get()
 {
-	static InputSystem system;
-	return &system;
+	return m_system;
+}
+
+void InputSystem::create()
+{
+	if (InputSystem::m_system) throw std::exception("InputSystem already created");
+	InputSystem::m_system = new InputSystem();
+}
+
+void InputSystem::release()
+{
+	if (!InputSystem::m_system) return;
+	delete InputSystem::m_system;
 }
 
 

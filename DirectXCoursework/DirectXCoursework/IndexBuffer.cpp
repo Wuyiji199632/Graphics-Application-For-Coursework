@@ -30,13 +30,9 @@ UINT IndexBuffer::getSizeIndexList()
 	return this->m_size_list;
 }
 
-bool IndexBuffer::release()
-{
-	m_buffer->Release();
-	delete this;
-	return true;
-}
+
 
 IndexBuffer::~IndexBuffer()
 {
+	m_buffer->Release();
 }

@@ -10,7 +10,7 @@ class VertexShader
 {
 public:
 	VertexShader(const void* shader_byte_code, size_t byte_code_size, RenderSystem* system);
-	void release();
+	
 	~VertexShader();
 private:
 	bool init(const void* shader_byte_code, size_t byte_code_size);

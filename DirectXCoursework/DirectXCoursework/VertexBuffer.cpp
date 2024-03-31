@@ -47,15 +47,11 @@ UINT VertexBuffer::getSizeVertexList()
 	return this->m_size_list;
 }
 
-bool VertexBuffer::release()
-{
-	m_layout->Release();
-	m_buffer->Release();
-	delete this;
-	return true;
-}
+
 
 
 VertexBuffer::~VertexBuffer()
 {
+	m_layout->Release();
+	m_buffer->Release();
 }

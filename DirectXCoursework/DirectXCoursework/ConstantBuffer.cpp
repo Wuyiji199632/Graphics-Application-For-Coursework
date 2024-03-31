@@ -21,8 +21,10 @@ ConstantBuffer::ConstantBuffer(void* buffer, UINT size_buffer, RenderSystem* sys
 		throw std::exception("ConstantBuffer not created successfully");
 	}
 }
-
-void ConstantBuffer::update(DeviceContext* context, void* buffer)
+ConstantBuffer::~ConstantBuffer()
+{
+}
+void ConstantBuffer::update(DeviceContextPtr context, void* buffer)
 {
 	context->m_device_context->UpdateSubresource(this->m_buffer, NULL, NULL, buffer, NULL, NULL);
 }
@@ -30,6 +32,3 @@ void ConstantBuffer::update(DeviceContext* context, void* buffer)
 
 
 
-ConstantBuffer::~ConstantBuffer()
-{
-}

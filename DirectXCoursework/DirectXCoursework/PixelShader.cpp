@@ -10,11 +10,7 @@ PixelShader::PixelShader(const void* shader_byte_code, size_t byte_code_size, Re
 		throw std::exception("PixelShader not created successfully");
 }
 
-void PixelShader::release()
-{
-	m_ps->Release();
-	delete this;
-}
+
 
 bool PixelShader::init(const void* shader_byte_code, size_t byte_code_size)
 {
@@ -28,4 +24,5 @@ bool PixelShader::init(const void* shader_byte_code, size_t byte_code_size)
 
 PixelShader::~PixelShader()
 {
+	m_ps->Release();
 }

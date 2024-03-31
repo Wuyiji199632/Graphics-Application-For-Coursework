@@ -10,7 +10,7 @@ public:
 		RenderSystem* system);
 	
 	UINT getSizeVertexList();
-	bool release();
+	
 	~VertexBuffer();
 private:
 	UINT m_size_vertex;
