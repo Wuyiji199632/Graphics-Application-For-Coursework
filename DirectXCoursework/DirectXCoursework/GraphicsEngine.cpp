@@ -44,6 +44,7 @@ TextureManager* GraphicsEngine::getTextureManager()
 GraphicsEngine::~GraphicsEngine()
 {
 	GraphicsEngine::m_engine = nullptr;
+	delete m_tex_manager;
 	delete m_render_system;
 }
 
