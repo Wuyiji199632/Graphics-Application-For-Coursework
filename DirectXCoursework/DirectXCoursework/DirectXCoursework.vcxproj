@@ -148,6 +148,8 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshManager.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Prerequisites.h" />
@@ -174,6 +176,8 @@
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
