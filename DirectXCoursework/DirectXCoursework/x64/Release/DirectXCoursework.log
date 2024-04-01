@@ -2,6 +2,45 @@
 C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(46,30): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
 C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(199,128): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
 C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(248,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
+  ConstantBuffer.cpp
+  DeviceContext.cpp
+  GraphicsEngine.cpp
+  IndexBuffer.cpp
+  InputListener.cpp
+  InputSystem.cpp
+  main.cpp
+  Matrix4x4.cpp
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(68,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(69,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(70,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(71,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(76,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(77,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(78,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(79,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(84,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(85,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(86,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(87,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(131,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(132,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(133,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(134,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\Matrix4x4.cpp(157,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  PixelShader.cpp
+  Point.cpp
+  RenderSystem.cpp
+  ResourceManager.cpp
+  Resource.cpp
+  SwapChain.cpp
+  Texture.cpp
+  TextureManager.cpp
+  Vector3D.cpp
+  Vector4D.cpp
+  VertexBuffer.cpp
+  Compiling...
+  VertexShader.cpp
+  Window.cpp
 DirectXTexD.lib(DirectXTexD3D11.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in AppWindow.obj
 DirectXTexD.lib(DirectXTexD3D11.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in AppWindow.obj
 DirectXTexD.lib(DirectXTexWIC.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in AppWindow.obj
