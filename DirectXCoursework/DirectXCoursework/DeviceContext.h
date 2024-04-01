@@ -22,8 +22,8 @@ public:
 
 	void setViewportSize(UINT width, UINT height);
 
-	void setVertexShader(VertexShaderPtr& vertex_shader);
-	void setPixelShader(PixelShaderPtr& pixel_shader);
+	void setVertexShader(const VertexShaderPtr& vertex_shader);
+	void setPixelShader(const PixelShaderPtr& pixel_shader);
 
 	void setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr& texture);
 	void setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr& texture);
