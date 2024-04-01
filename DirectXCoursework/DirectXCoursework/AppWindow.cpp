@@ -125,7 +125,7 @@ void AppWindow::onCreate()
 	InputSystem::get()->showCursor(false);
 	
 
-	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"..\\Assets\\Textures\\wood.jpg");
+	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wood.jpg");
 
 
 
