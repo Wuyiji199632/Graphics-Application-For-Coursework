@@ -27,6 +27,7 @@ ResourcePtr ResourceManager::createResourceFromFile(const wchar_t* file_path)
 #endif
 
 
+	
 
 	auto it = m_map_resources.find(full_path);
 
