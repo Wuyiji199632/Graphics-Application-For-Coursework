@@ -1,15 +1,7 @@
-﻿  AppWindow.cpp
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(42,30): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(240,128): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\AppWindow.cpp(291,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
-  ConstantBuffer.cpp
-  DeviceContext.cpp
-  GraphicsEngine.cpp
-  RenderSystem.cpp
-  main.cpp
+﻿  VertexBuffer.cpp
   Generating code
-  3 of 1016 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
+  0 of 1016 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   DirectXCoursework.vcxproj -> C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\DirectXCoursework.exe
