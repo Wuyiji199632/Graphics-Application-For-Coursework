@@ -10,10 +10,17 @@ MeshManager::~MeshManager()
 
 MeshPtr MeshManager::createMeshFromFile(const wchar_t* file_path)
 {
-    return MeshPtr();
+    return std::static_pointer_cast<Mesh>(createResourceFromFile(file_path));
 }
 
 Resource* MeshManager::createResourceFromFileConcrete(const wchar_t* file_path)
 {
-    return nullptr;
+	Mesh* mesh = nullptr;
+	try
+	{
+		mesh = new Mesh(file_path);
+	}
+	catch (...) {}
+
+	return mesh;
 }

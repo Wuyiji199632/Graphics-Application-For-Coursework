@@ -1,5 +1,6 @@
 #pragma once
 #include "ResourceManager.h"
+#include "Mesh.h"
 class MeshManager:public ResourceManager
 {
 public:
