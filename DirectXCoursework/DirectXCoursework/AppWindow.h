@@ -13,6 +13,9 @@
 #include "InputListener.h"
 #include "InputSystem.h"
 #include "Matrix4x4.h"
+#include "Vector2D.h"
+#include "Vector3D.h"
+#include "Vector4D.h"
 class AppWindow : public Window,public InputListener
 {
 public:
@@ -47,6 +50,8 @@ private:
 	ConstantBufferPtr m_cb;
 	IndexBufferPtr m_ib;
 
+
+	TexturePtr m_wood_tex;
 
 private:
 	long m_old_delta;
