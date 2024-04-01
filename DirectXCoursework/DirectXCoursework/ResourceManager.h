@@ -1,5 +1,5 @@
 #pragma once
-#include<map>
+#include <map>
 #include <string>
 #include "Prerequisites.h"
 #include "Resource.h"
