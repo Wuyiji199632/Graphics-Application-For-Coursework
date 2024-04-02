@@ -19,6 +19,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 		break;
 	}
+	case WM_SIZE:
+	{
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		if (window) window->onSize();
+
+		break;
+	}
 	case WM_SETFOCUS:
 	{
 		// Event fired when the window get focus
@@ -42,6 +49,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		break;
 	}
 
+	
 
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
@@ -75,7 +83,7 @@ Window::Window()
 
 	//Creation of the window
 	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"MyWindowClass", L"DirectX Application",
-		WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
 		NULL, NULL, NULL, NULL);
 
 	//if the creation fail return false
@@ -156,6 +164,10 @@ void Window::onFocus()
 }
 
 void Window::onKillFocus()
+{
+}
+
+void Window::onSize()
 {
 }
 

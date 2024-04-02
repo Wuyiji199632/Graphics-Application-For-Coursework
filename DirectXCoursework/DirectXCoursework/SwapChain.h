@@ -8,12 +8,14 @@ public:
 	SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system);
 	//Initialize SwapChain for a window
 	
-
+	~SwapChain();
 
 	bool present(bool vsync);
-
+	void resize(unsigned int width, unsigned int height);
+private:
+	void reloadBuffers(unsigned int width,unsigned int height);
 	
-	~SwapChain();
+	
 private:
 	IDXGISwapChain* m_swap_chain;
 	ID3D11RenderTargetView* m_rtv;

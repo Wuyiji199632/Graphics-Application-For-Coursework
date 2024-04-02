@@ -16,6 +16,7 @@
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
+#include "Prerequisites.h"
 class AppWindow : public Window,public InputListener
 {
 public:
@@ -23,8 +24,10 @@ public:
 	~AppWindow();
 
 	void update();
-
-
+	void updateCamera();
+	void updateModel();
+	void updateSkybox();
+	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& tex);
 
 	// Inherited via Window
 	virtual void onCreate() override;
@@ -32,7 +35,7 @@ public:
 	virtual void onDestroy() override;
 	virtual void onFocus() override;
 	virtual void onKillFocus() override;
-
+	virtual void onSize() override;
 
 	//Inherited via InputListener
 	virtual void onKeyDown(int key) override;
@@ -46,14 +49,15 @@ private:
 	SwapChainPtr m_swap_chain;
 	VertexBufferPtr m_vb;
 	VertexShaderPtr m_vs;
-	PixelShaderPtr m_ps;
-	ConstantBufferPtr m_cb;
+	PixelShaderPtr m_ps,m_sky_ps;
+	ConstantBufferPtr m_cb,m_sky_cb;
 	IndexBufferPtr m_ib;
 
 
 	TexturePtr m_wood_tex;
-
+	TexturePtr m_sky_tex;
 	MeshPtr m_mesh;
+	MeshPtr m_sky_mesh;
 
 private:
 	long m_old_delta;
@@ -72,7 +76,11 @@ private:
 	float m_scale_cube = 1;
 	float m_forward = 0.0f;
 	float m_rightward = 0.0f;
+	
+	bool cull = true;
 	Matrix4x4 m_world_cam;
+	Matrix4x4 m_view_cam;
+	Matrix4x4 m_proj_cam;
 };
 
 
