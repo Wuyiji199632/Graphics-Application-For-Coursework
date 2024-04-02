@@ -22,7 +22,7 @@ struct constant
 	Matrix4x4 m_world;
 	Matrix4x4 m_view;
 	Matrix4x4 m_proj;
-	unsigned int m_time;
+	Vector4D m_light_direction;
 };
 
 
@@ -39,14 +39,20 @@ AppWindow::~AppWindow()
 void AppWindow::update()
 {
 	constant cc;
-	cc.m_time = ::GetTickCount64();
+	
 
 	m_delta_pos += m_delta_time / 10.0f;
 	if (m_delta_pos > 1.0f)
 		m_delta_pos = 0;
 
+	m_light_rot_y += 0.707f * m_delta_time;
 
 	Matrix4x4 temp;
+	Matrix4x4 m_light_rot_matrix;
+	m_light_rot_matrix.setIdentity();
+	m_light_rot_matrix.setRotationY(m_light_rot_y);
+	cc.m_light_direction = m_light_rot_matrix.getZDirection();
+
 
 	m_delta_scale += m_delta_time / 0.55f;
 
@@ -127,7 +133,7 @@ void AppWindow::onCreate()
 
 	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
 
-	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\teapot.obj");
+	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\statue.obj");
 
 
 
@@ -243,8 +249,7 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
 	constant cc;
-	cc.m_time = 0;
-
+	
 	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
 	
 

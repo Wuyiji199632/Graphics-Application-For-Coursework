@@ -12,6 +12,10 @@ Vector4D::Vector4D(const Vector4D& vector) :m_x(vector.m_x), m_y(vector.m_y), m_
 {
 }
 
+Vector4D::Vector4D(const Vector3D& vector) :m_x(vector.m_x), m_y(vector.m_y), m_z(vector.m_z), m_w(1.0)
+{
+}
+
 Vector4D::~Vector4D()
 {
 }

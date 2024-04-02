@@ -6,7 +6,7 @@ class VertexMesh
 
 public:
 	VertexMesh();
-	VertexMesh(Vector3D position, Vector2D texcoord);
+	VertexMesh(Vector3D position, Vector2D texcoord, Vector3D normal);
 	VertexMesh(const VertexMesh& vertex);
 	~VertexMesh();
 
@@ -14,5 +14,6 @@ public:
 public:
 	Vector3D m_position;
 	Vector2D m_texcoord;
+	Vector3D m_normal;
 };
 

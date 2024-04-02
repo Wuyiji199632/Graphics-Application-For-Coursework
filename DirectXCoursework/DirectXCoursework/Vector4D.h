@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Vector3D.h"
 class Vector4D
 {
 public:
@@ -9,6 +10,8 @@ public:
 	Vector4D(float x, float y, float z, float w);
 
 	Vector4D(const Vector4D& vector);
+
+	Vector4D(const Vector3D& vector);
 
 	~Vector4D();
 
