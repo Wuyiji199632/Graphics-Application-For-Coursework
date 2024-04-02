@@ -9,7 +9,7 @@ public:
 	//Initialize SwapChain for a window
 	
 	~SwapChain();
-
+	void setFullScreen(bool fullscreen,unsigned int width, unsigned int height);
 	bool present(bool vsync);
 	void resize(unsigned int width, unsigned int height);
 private:

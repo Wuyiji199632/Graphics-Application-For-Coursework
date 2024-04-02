@@ -28,6 +28,8 @@ public:
 	void updateModel();
 	void updateSkybox();
 	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& tex);
+	void render();
+
 
 	// Inherited via Window
 	virtual void onCreate() override;
@@ -36,6 +38,7 @@ public:
 	virtual void onFocus() override;
 	virtual void onKillFocus() override;
 	virtual void onSize() override;
+
 
 	//Inherited via InputListener
 	virtual void onKeyDown(int key) override;
@@ -81,6 +84,12 @@ private:
 	Matrix4x4 m_world_cam;
 	Matrix4x4 m_view_cam;
 	Matrix4x4 m_proj_cam;
+
+
+
+	bool m_play_state = false;
+
+	bool m_full_screen_state = false;
 };
 
 

@@ -125,12 +125,60 @@ void AppWindow::drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const P
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
 }
 
+void AppWindow::render()
+{
+	//CLEAR THE RENDER TARGET 
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+		0, 0.3f, 0.4f, 1);
+	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
+	RECT rc = this->getClientWindowRect();
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	update();
+
+	//Render Model
+	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);
+	drawMesh(m_mesh, m_vs, m_ps, m_cb, m_wood_tex);
+
+	//Render Skybox
+	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(true);
+	drawMesh(m_sky_mesh, m_vs, m_sky_ps, m_sky_cb, m_sky_tex);
+
+
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
+
+	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
+
+
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
+
+	//SET THE VERTICES OF THE TRIANGLE TO DRAW
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_mesh->getVertexBuffer());
+	//SET THE INDICES OF THE TRIANGLE TO DRAW
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_mesh->getIndexBuffer());
+
+
+	// FINALLY DRAW THE TRIANGLE
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
+	m_swap_chain->present(true);
+
+
+	m_old_delta = m_new_delta;
+	m_new_delta = ::GetTickCount64();
+
+	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+}
+
 void AppWindow::onCreate()
 {
 	Window::onCreate();
 	InputSystem::get()->addListener(this);
-	//InputSystem::get()->showCursor(false);
+	InputSystem::get()->showCursor(false);
 	
+	m_play_state = true;
 
 	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
 	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\sky.jpg");
@@ -172,55 +220,15 @@ void AppWindow::onUpdate()
 {
 	Window::onUpdate();
 	InputSystem::get()->update();
-	//CLEAR THE RENDER TARGET 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
-		0, 0.3f, 0.4f, 1);
-	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
-	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
-
-	update();
-
-	//Render Model
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);
-	drawMesh(m_mesh, m_vs, m_ps, m_cb, m_wood_tex);
-
-	//Render Skybox
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(true);
-	drawMesh(m_sky_mesh, m_vs, m_sky_ps, m_sky_cb, m_sky_tex);
+	this->render();
 	
-
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
-
-	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
-
-	
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
-
-	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_mesh->getVertexBuffer());
-	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_mesh->getIndexBuffer());
-
-
-	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
-	m_swap_chain->present(true);
-
-
-	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount64();
-
-	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
 }
 
 
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
+	m_swap_chain->setFullScreen(false, 1, 1);
 	
 }
 
@@ -238,6 +246,7 @@ void AppWindow::onSize()
 {
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->resize(rc.right, rc.bottom);
+	onUpdate();
 }
 
 void AppWindow::onKeyDown(int key)
@@ -268,11 +277,24 @@ void AppWindow::onKeyUp(int key)
 {
 	m_forward = 0.0f;
 	m_rightward = 0.0f;
+
+	if (key == 'G')
+	{
+		m_play_state = (m_play_state) ? false : true;
+		InputSystem::get()->showCursor(m_play_state);
+	}
+
+	else if (key == 'F')
+	{
+		m_full_screen_state = (m_full_screen_state) ? false : true;
+		RECT size_screen = this->getScreenSize();
+		m_swap_chain->setFullScreen(m_full_screen_state, size_screen.right, size_screen.bottom);
+	}
 }
 
 void AppWindow::onMouseMove(const Point& mouse_pos)
 {
-	return;
+	if(!m_play_state)return;
 	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
 	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 

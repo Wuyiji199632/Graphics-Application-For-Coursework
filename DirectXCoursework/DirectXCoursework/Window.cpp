@@ -144,6 +144,17 @@ RECT Window::getClientWindowRect()
 	return rc;
 }
 
+RECT Window::getScreenSize()
+{
+	RECT rc;
+
+	rc.right = ::GetSystemMetrics(SM_CXSCREEN);
+
+	rc.bottom = ::GetSystemMetrics(SM_CYSCREEN);
+
+	return rc;
+}
+
 
 
 void Window::onCreate()
