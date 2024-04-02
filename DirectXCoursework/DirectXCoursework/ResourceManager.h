@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <string>
 #include "Prerequisites.h"
 #include "Resource.h"
@@ -12,7 +12,7 @@ public:
 	ResourcePtr createResourceFromFile(const wchar_t* file_path);
 
 private:
-	std::map<std::wstring, ResourcePtr> m_map_resources;
+	std::unordered_map<std::wstring, ResourcePtr> m_map_resources;
 protected:
 	virtual Resource* createResourceFromFileConcrete(const wchar_t* file_path)=0;
 };

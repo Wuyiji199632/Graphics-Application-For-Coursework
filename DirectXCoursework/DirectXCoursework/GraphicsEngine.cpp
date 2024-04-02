@@ -25,6 +25,12 @@ GraphicsEngine::GraphicsEngine()
 	}
 	catch (...) { throw std::exception("TextureManager not created successfully"); }
 
+	try
+	{
+		m_mesh_manager = new MeshManager();
+	}
+	catch (...) { throw std::exception("MeshManager not created successfully"); }
+
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
