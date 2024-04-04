@@ -147,6 +147,11 @@ Vector3D Matrix4x4::getXDirection()
 	return Vector3D(m_mat[0][0], m_mat[0][1], m_mat[0][2]);
 }
 
+Vector3D Matrix4x4::getYDirection()
+{
+	return Vector3D(m_mat[1][0], m_mat[1][1], m_mat[1][2]);
+}
+
 Vector3D Matrix4x4::getTranslation()
 {
 	return Vector3D(m_mat[3][0], m_mat[3][1], m_mat[3][2]);

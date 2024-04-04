@@ -29,7 +29,8 @@ public:
 	void drawMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials);
 	void render();
 	void updateLight();
-
+	void updateSpaceShipMovement();
+	void updateThirdPersonCamera();
 	// Inherited via Window
 	virtual void onCreate() override;
 	virtual void onUpdate() override;

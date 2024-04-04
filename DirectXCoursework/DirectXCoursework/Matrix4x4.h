@@ -27,8 +27,10 @@ public:
 	void inverse();
 
 
-	Vector3D getZDirection();
+	
 	Vector3D getXDirection();
+	Vector3D getYDirection();
+	Vector3D getZDirection();
 	Vector3D getTranslation();
 	void setPerspectiveFovLH(float fov, float aspect, float znear, float zfar);
 	void setOrthoLH(float width, float height, float near_plane, float far_plane);

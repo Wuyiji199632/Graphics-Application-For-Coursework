@@ -84,14 +84,15 @@ void SpaceShooterGame::onCreate()
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
-	m_list_materials.reserve(64);
+	m_list_materials.reserve(1024);
 }
 void SpaceShooterGame::update()
 {
-
-	updateCamera();
+	
 	updateLight();
 	updateSkybox();
+	updateSpaceShipMovement();
+	updateThirdPersonCamera();
 }
 
 void SpaceShooterGame::updateCamera()
@@ -260,6 +261,73 @@ void SpaceShooterGame::updateLight()
 	temp.setIdentity();
 	temp.setRotationY(0.707f);
 	m_light_rot_matrix *= temp;
+}
+
+void SpaceShooterGame::updateSpaceShipMovement()
+{
+	Matrix4x4 world_model_spaceShip, temp;
+	world_model_spaceShip.setIdentity();
+
+	m_spaceship_rot.m_x += m_delta_mouse_y * m_delta_time * 0.1f;
+	m_spaceship_rot.m_y += m_delta_mouse_x * m_delta_time * 0.1f;
+
+
+	if (m_spaceship_rot.m_x >= 1.57f)
+		m_spaceship_rot.m_x = 1.57f;
+	else if (m_spaceship_rot.m_x <= -1.57f)
+		m_spaceship_rot.m_x = -1.57f;
+
+
+	temp.setIdentity();
+	temp.setRotationX(m_spaceship_rot.m_x);
+	world_model_spaceShip *= temp;
+
+	temp.setIdentity();
+	temp.setRotationY(m_spaceship_rot.m_y);
+	world_model_spaceShip *= temp;
+
+	m_spaceship_pos = m_spaceship_pos + world_model_spaceShip.getZDirection() * (m_forward) * 125.0f * m_delta_time+ world_model_spaceShip.getXDirection() * (m_rightward) * 125.0f * m_delta_time;
+}
+
+void SpaceShooterGame::updateThirdPersonCamera()
+{
+	Matrix4x4 world_cam, temp;
+	world_cam.setIdentity();
+
+	m_cam_rot.m_x += m_delta_mouse_y * m_delta_time * 0.1f;
+	m_cam_rot.m_y += m_delta_mouse_x * m_delta_time * 0.1f;
+
+
+	if (m_cam_rot.m_x >= 1.57f)
+		m_cam_rot.m_x = 1.57f;
+	else if (m_cam_rot.m_x <= -1.57f)
+		m_cam_rot.m_x = -1.57f;
+
+	temp.setIdentity();
+	temp.setRotationX(m_cam_rot.m_x);
+	world_cam *= temp;
+
+	temp.setIdentity();
+	temp.setRotationY(m_cam_rot.m_y);
+	world_cam *= temp;
+
+	m_cam_pos = m_spaceship_pos;
+
+	Vector3D new_pos = m_cam_pos + world_cam.getZDirection() * (-m_cam_distance);
+	new_pos = new_pos + world_cam.getYDirection() * (5.0f);
+
+	world_cam.setTranslation(new_pos);
+
+	m_world_cam = world_cam;
+
+	world_cam.inverse();
+
+	m_view_cam = world_cam;
+
+	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
+	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
+
+	m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 5000.0f);
 }
 
 
