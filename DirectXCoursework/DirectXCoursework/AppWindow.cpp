@@ -17,13 +17,16 @@ struct vertex
 
 
 __declspec(align(16))
-struct constant
+struct constant //Specify the position and rotation or any other constant behavioural movements of scene objects, further work needs to create seperation for all the scene objects correspondingly
 {
 	Matrix4x4 m_world;
 	Matrix4x4 m_view;
 	Matrix4x4 m_proj;
 	Vector4D m_light_direction;
 	Vector4D m_camera_position;
+	Vector4D m_light_position = Vector4D(0,1,0,0);
+	float m_light_radius=40.0f;
+	float m_time = 0.0f;
 };
 
 
@@ -36,10 +39,69 @@ AppWindow::AppWindow()
 AppWindow::~AppWindow()
 {
 }
+void AppWindow::onCreate()
+{
+	Window::onCreate();
 
+	InputSystem::get()->addListener(this);
+
+	m_play_state = true;
+	InputSystem::get()->showCursor(false);
+
+	m_wall_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wall.jpg");
+	m_bricks_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
+	m_earth_color_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\earth_color.jpg");
+
+
+
+
+	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\stars_map.jpg");
+
+
+	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
+	(L"Assets\\Meshes\\scene.obj");
+	m_torus_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
+	(L"Assets\\Meshes\\torus.obj");
+	m_suzanne_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
+	(L"Assets\\Meshes\\suzanne.obj");
+	m_plane_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
+	(L"Assets\\Meshes\\plane.obj");
+
+	m_sky_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\sphere.obj");
+
+
+	RECT rc = this->getClientWindowRect();
+	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
+
+	m_world_cam.setTranslation(Vector3D(0, 0, -1));
+
+
+	m_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"PointLightPixelShader.hlsl");
+	m_mat->addTexture(m_wall_tex);
+	m_mat->setCullMode(CULL_MODE_BACK);
+
+	m_earth_mat = GraphicsEngine::get()->createMaterial(m_mat);
+	m_earth_mat->addTexture(m_earth_color_tex);
+	m_earth_mat->setCullMode(CULL_MODE_BACK);
+
+	m_bricks_mat = GraphicsEngine::get()->createMaterial(m_mat);
+	m_bricks_mat->addTexture(m_bricks_tex);
+	m_bricks_mat->setCullMode(CULL_MODE_BACK);
+
+
+	m_sky_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"SkyBoxShader.hlsl");
+	m_sky_mat->addTexture(m_sky_tex);
+	m_sky_mat->setCullMode(CULL_MODE_FRONT);
+
+
+	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+}
 void AppWindow::update()
 {
-	updateCamera(); updateModel(); updateSkybox();
+	
+	updateCamera();
+	updateLight();
+	updateSkybox();
 }
 
 void AppWindow::updateCamera()
@@ -73,7 +135,7 @@ void AppWindow::updateCamera()
 	m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
 }
 
-void AppWindow::updateModel()
+void AppWindow::updateModel(Vector3D position, const MaterialPtr& material)
 {
 	constant cc;
 
@@ -81,15 +143,18 @@ void AppWindow::updateModel()
 	m_light_rot_matrix.setIdentity();
 	m_light_rot_matrix.setRotationY(m_light_rot_y);
 
-	m_light_rot_y += 0.707f * m_delta_time;
-
 	cc.m_world.setIdentity();
+	cc.m_world.setTranslation(position);
 	cc.m_view = m_view_cam;
 	cc.m_proj = m_proj_cam;
 	cc.m_camera_position = m_world_cam.getTranslation();
-	cc.m_light_direction = m_light_rot_matrix.getZDirection();
 
-	m_cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
+	cc.m_light_position = m_light_position;
+	cc.m_light_radius = m_light_radius;
+	cc.m_light_direction = m_light_rot_matrix.getZDirection();
+	cc.m_time = m_time;
+
+	material->setData(&cc, sizeof(constant));
 }
 
 void AppWindow::updateSkybox()
@@ -102,20 +167,12 @@ void AppWindow::updateSkybox()
 	cc.m_view = m_view_cam;
 	cc.m_proj = m_proj_cam;
 
-	m_sky_cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
+	m_sky_mat->setData(&cc, sizeof(constant));
 }
 
-void AppWindow::drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& tex)
+void AppWindow::drawMesh(const MeshPtr& mesh, const MaterialPtr& material)
 {
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(vs, cb);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(ps, cb);
-
-	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(vs);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(ps);
-
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(ps, tex);
-
+	GraphicsEngine::get()->setMaterial(material);
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(mesh->getVertexBuffer());
 	//SET THE INDICES OF THE TRIANGLE TO DRAW
@@ -134,87 +191,52 @@ void AppWindow::render()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
+
+
+	//COMPUTE TRANSFORM MATRICES
 	update();
 
-	//Render Model
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);
-	drawMesh(m_mesh, m_vs, m_ps, m_cb, m_wood_tex);
+	for (int i = 0; i < 3; i++)
+	{
+		//RENDER MODEL
+		updateModel(Vector3D(0.0f, 2.0f, -4.0f + 4.0f * i), m_mat);
+		drawMesh(m_torus_mesh, m_mat);
 
-	//Render Skybox
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(true);
-	drawMesh(m_sky_mesh, m_vs, m_sky_ps, m_sky_cb, m_sky_tex);
+		//RENDER MODEL
+		updateModel(Vector3D(4.0f, 2.0f, -4.0f + 4.0f * i), m_earth_mat);
+		drawMesh(m_sky_mesh, m_earth_mat);
 
+		//RENDER MODEL
+		updateModel(Vector3D(-4.0f, 2.0f, -4.0f + 4.0f * i), m_bricks_mat);
+		drawMesh(m_suzanne_mesh, m_bricks_mat);
+	}
 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
+	updateModel(Vector3D(0, 0, 0), m_mat);
+	drawMesh(m_plane_mesh, m_mat);
 
-	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
-
-
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
-
-	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_mesh->getVertexBuffer());
-	//SET THE INDICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_mesh->getIndexBuffer());
+	//RENDER SKYBOX/SPHERE
+	drawMesh(m_sky_mesh, m_sky_mat);
 
 
-	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
 	m_swap_chain->present(true);
 
 
 	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount64();
+	m_new_delta = ::GetTickCount();
 
 	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+	m_time += m_delta_time;
 }
 
-void AppWindow::onCreate()
+void AppWindow::updateLight()
 {
-	Window::onCreate();
-	InputSystem::get()->addListener(this);
-	InputSystem::get()->showCursor(false);
-	
-	m_play_state = true;
+	m_light_rot_y += 1.57f * m_delta_time;
 
-	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\brick.png");
-	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\sky.jpg");
-
-
-	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\suzanne.obj");
-
-	m_sky_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\sphere.obj");
-
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-
-	m_world_cam.setTranslation(Vector3D(0, 0, -1));
-
-
-
-	void* shader_byte_code = nullptr;
-	size_t size_shader = 0;
-	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
-
-	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
-
-	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"SkyboxShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_sky_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
-
-	constant cc;
-	
-	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
-	
-	m_sky_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+	float dist_from_origin = 3.0f;
+	m_light_position = Vector4D(cos(m_light_rot_y) * dist_from_origin, 2.0f, sin(m_light_rot_y) * dist_from_origin, 1.0f);
 }
+
+
 
 void AppWindow::onUpdate()
 {
@@ -281,13 +303,14 @@ void AppWindow::onKeyUp(int key)
 	if (key == 'G')
 	{
 		m_play_state = (m_play_state) ? false : true;
-		InputSystem::get()->showCursor(m_play_state);
+		InputSystem::get()->showCursor(!m_play_state);
 	}
 
 	else if (key == 'F')
 	{
 		m_full_screen_state = (m_full_screen_state) ? false : true;
-		RECT size_screen = this->getScreenSize();
+		size_screen = this->getScreenSize();
+		
 		m_swap_chain->setFullScreen(m_full_screen_state, size_screen.right, size_screen.bottom);
 	}
 }

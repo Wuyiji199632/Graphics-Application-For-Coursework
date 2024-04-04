@@ -28,6 +28,12 @@
     <Filter Include="GameEngine\Shaders">
       <UniqueIdentifier>{102a26d8-1e66-4f5b-a2a4-b9beaa59dcc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Shaders\EarthShaders">
+      <UniqueIdentifier>{78b940d0-b519-4354-b8d9-e17114265e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders\PointLightShaders">
+      <UniqueIdentifier>{a8b8040b-5ec9-4eee-9ddd-80881ad93d4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -111,6 +117,9 @@
     <ClInclude Include="VertexMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,19 +200,31 @@
     <ClCompile Include="VertexMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
-      <Filter>GameEngine\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
-      <Filter>GameEngine\Shaders</Filter>
-    </FxCompile>
     <FxCompile Include="VertexMeshLayoutShader.hlsl">
       <Filter>GameEngine\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="SkyboxShader.hlsl">
       <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ScenePixelShader.hlsl">
+      <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>GameEngine\Shaders\EarthShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>GameEngine\Shaders\EarthShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightVertexShader.hlsl">
+      <Filter>GameEngine\Shaders\PointLightShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightPixelShader.hlsl">
+      <Filter>GameEngine\Shaders\PointLightShaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

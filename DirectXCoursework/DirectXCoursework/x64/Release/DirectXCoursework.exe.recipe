@@ -10,6 +10,15 @@
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\PixelShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\PointLightPixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\PointLightVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\ScenePixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\SkyboxShader.cso</FullPath>
     </ContentFile>
     <ContentFile>

@@ -25,11 +25,11 @@ public:
 
 	void update();
 	void updateCamera();
-	void updateModel();
+	void updateModel(Vector3D position, const MaterialPtr& material);
 	void updateSkybox();
-	void drawMesh(const MeshPtr& mesh, const VertexShaderPtr& vs, const PixelShaderPtr& ps, const ConstantBufferPtr& cb, const TexturePtr& tex);
+	void drawMesh(const MeshPtr& mesh, const MaterialPtr& material);
 	void render();
-
+	void updateLight();
 
 	// Inherited via Window
 	virtual void onCreate() override;
@@ -51,16 +51,29 @@ public:
 private:
 	SwapChainPtr m_swap_chain;
 	VertexBufferPtr m_vb;
-	VertexShaderPtr m_vs;
-	PixelShaderPtr m_ps,m_sky_ps;
+	VertexShaderPtr m_vs,m_pointLight_vs;
+	PixelShaderPtr m_ps,m_sky_ps, m_pointLight_ps;
 	ConstantBufferPtr m_cb,m_sky_cb;
 	IndexBufferPtr m_ib;
 
 
 	TexturePtr m_wood_tex;
 	TexturePtr m_sky_tex;
-	MeshPtr m_mesh;
+	TexturePtr m_earth_color_tex;
+	TexturePtr m_earth_spec_tex;
+	TexturePtr m_clouds_tex;
+	TexturePtr m_earth_night_tex;
+	TexturePtr m_wall_tex;
+	TexturePtr m_bricks_tex;
+
+	MeshPtr m_mesh,m_scene_mesh;
 	MeshPtr m_sky_mesh;
+
+	MeshPtr m_torus_mesh;
+	MeshPtr m_suzanne_mesh;
+	MeshPtr m_plane_mesh;
+
+	MaterialPtr m_mat,m_sky_mat, m_earth_mat,m_bricks_mat;
 
 private:
 	long m_old_delta;
@@ -86,10 +99,21 @@ private:
 	Matrix4x4 m_proj_cam;
 
 
+	RECT size_screen;
 
 	bool m_play_state = false;
 
 	bool m_full_screen_state = false;
+
+	float m_time = 0.0f;
+
+
+	float m_light_radius = 4.0f;
+	float m_attenuation = 2.0f;
+	bool m_anim = false;
+
+
+	Vector4D m_light_position;
 };
 
 

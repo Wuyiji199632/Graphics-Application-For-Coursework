@@ -25,8 +25,8 @@ public:
 	void setVertexShader(const VertexShaderPtr& vertex_shader);
 	void setPixelShader(const PixelShaderPtr& pixel_shader);
 
-	void setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr& texture);
-	void setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr& texture);
+	void setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr* texture,unsigned int num_textures);
+	void setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr* texture, unsigned int num_textures);
 	
 	~DeviceContext();
 	ID3D11DeviceContext* m_device_context;
