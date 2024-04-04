@@ -25,9 +25,9 @@ public:
 
 	void update();
 	void updateCamera();
-	void updateModel(Vector3D position, const MaterialPtr& material);
+	void updateModel(Vector3D position, const std::vector <MaterialPtr>& list_materials);
 	void updateSkybox();
-	void drawMesh(const MeshPtr& mesh, const MaterialPtr& material);
+	void drawMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials);
 	void render();
 	void updateLight();
 
@@ -57,7 +57,7 @@ private:
 	IndexBufferPtr m_ib;
 
 
-	TexturePtr m_wood_tex;
+
 	TexturePtr m_sky_tex;
 	TexturePtr m_earth_color_tex;
 	TexturePtr m_earth_spec_tex;
@@ -65,6 +65,12 @@ private:
 	TexturePtr m_earth_night_tex;
 	TexturePtr m_wall_tex;
 	TexturePtr m_bricks_tex;
+	TexturePtr m_sand_tex;
+	TexturePtr m_barrel_tex;
+	TexturePtr m_brick_tex;
+	TexturePtr m_wood_tex;
+	TexturePtr m_windows_tex;
+
 
 	MeshPtr m_mesh,m_scene_mesh;
 	MeshPtr m_sky_mesh;
@@ -72,8 +78,18 @@ private:
 	MeshPtr m_torus_mesh;
 	MeshPtr m_suzanne_mesh;
 	MeshPtr m_plane_mesh;
+	MeshPtr m_terrain_mesh;
+	MeshPtr m_house_mesh;
 
-	MaterialPtr m_mat,m_sky_mat, m_earth_mat,m_bricks_mat;
+
+	MaterialPtr m_mat,m_sky_mat, 
+		m_earth_mat,
+		m_bricks_mat,
+		m_terrain_mat,
+		m_barrel_mat,
+		m_brick_mat,
+		m_windows_mat,
+		m_wood_mat;
 
 private:
 	long m_old_delta;
@@ -108,10 +124,11 @@ private:
 	float m_time = 0.0f;
 
 
-	float m_light_radius = 4.0f;
+	float m_light_radius = 500.0f;
 	float m_attenuation = 2.0f;
 	bool m_anim = false;
 
+	std::vector<MaterialPtr> m_list_materials;
 
 	Vector4D m_light_position;
 };

@@ -7,6 +7,12 @@
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\DirectionalLightPixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\DirectionalLightVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\PixelShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
@@ -19,7 +25,13 @@
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\ScenePixelShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\SkyboxPixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\SkyboxShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\SkyboxVertexShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
       <FullPath>C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\VertexShader.cso</FullPath>
