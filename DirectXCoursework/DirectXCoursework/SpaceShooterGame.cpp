@@ -2,8 +2,8 @@
 #include "SpaceShooterGame.h"
 #include <Windows.h>
 #include <xmemory>
-
-
+#include <time.h>
+#include "MathUtility.h"
 struct vec3
 {
 	float x, y, z;
@@ -53,7 +53,18 @@ void SpaceShooterGame::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
+	srand((unsigned int)time(NULL));
 
+	//Initialise the asteroid meshes
+	for (unsigned int i = 0; i < 200; i++) {
+
+		m_asteroids_pos[i] = Vector3D(rand()%4000 - 2000, rand() % 4000 - 2000, rand() % 4000 - 2000);
+
+		m_asteroids_rot[i] = Vector3D((rand() % 628)/100.f - 2000, (rand() % 628)/100.f - 2000, (rand() % 628) - 2000);
+
+		float scale = rand() % 10 + 6;
+		m_asteroids_scale[i] = Vector3D(scale, scale, scale);
+	}
 
 
 	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\stars_map.jpg");
@@ -88,11 +99,11 @@ void SpaceShooterGame::onCreate()
 }
 void SpaceShooterGame::update()
 {
-	
-	updateLight();
-	updateSkybox();
 	updateSpaceShipMovement();
 	updateThirdPersonCamera();
+	updateLight();
+	updateSkybox();
+	
 }
 
 void SpaceShooterGame::updateCamera()
@@ -103,12 +114,15 @@ void SpaceShooterGame::updateCamera()
 	m_cam_rot.m_x += m_delta_mouse_y * m_delta_time * 0.1f;
 	m_cam_rot.m_y += m_delta_mouse_x * m_delta_time * 0.1f;
 
+
+	m_current_cam_rot = Vector3D::lerp(m_current_cam_rot, m_cam_rot, 3.5f * m_delta_time);
+
 	temp.setIdentity();
-	temp.setRotationX(m_cam_rot.m_x);
+	temp.setRotationX(m_current_cam_rot.m_x);
 	world_cam *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(m_cam_rot.m_y);
+	temp.setRotationY(m_current_cam_rot.m_y);
 	world_cam *= temp;
 
 	Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_forward * 0.05f);
@@ -126,7 +140,7 @@ void SpaceShooterGame::updateCamera()
 	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
 	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
-	m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 600.0f);
+	m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 6000.f);
 }
 
 void SpaceShooterGame::updateModel(Vector3D position, Vector3D rotation, Vector3D scale, const std::vector<MaterialPtr>& list_materials)
@@ -179,7 +193,7 @@ void SpaceShooterGame::updateSkybox()
 	constant cc;
 
 	cc.m_world.setIdentity();
-	cc.m_world.setScale(Vector3D(100.0f, 100.0f, 100.0f));
+	cc.m_world.setScale(Vector3D(4000.f, 4000.f, 4000.f));
 	cc.m_world.setTranslation(m_world_cam.getTranslation());
 	cc.m_view = m_view_cam;
 	cc.m_proj = m_proj_cam;
@@ -221,14 +235,21 @@ void SpaceShooterGame::render()
 	//RENDER SPACESHIP
 	m_list_materials.clear();
 	m_list_materials.push_back(m_spaceship_mat);
-	updateModel(m_spaceship_pos, m_spaceship_rot, Vector3D(1, 1, 1), m_list_materials);
+	updateModel(m_current_spaceship_pos, m_current_spaceship_rot, Vector3D(1, 1, 1), m_list_materials);
 	drawMesh(m_spaceship_mesh, m_list_materials);
 
 
+	
+	//RENDER ASTEROIDS
 	m_list_materials.clear();
-	m_list_materials.push_back(m_asteroid_mat);
-	updateModel(Vector3D(0, 0, 20), Vector3D(0, 0, 0), Vector3D(1, 1, 1), m_list_materials);
-	drawMesh(m_asteroid_mesh, m_list_materials);
+	m_list_materials.push_back(m_asteroid_mat);	
+	for (unsigned int i = 0; i < 200; i++) {
+
+		
+		updateModel(m_asteroids_pos[i], m_asteroids_rot[i], m_asteroids_scale[i], m_list_materials);
+		drawMesh(m_asteroid_mesh, m_list_materials);
+	}
+
 
 
 	//RENDER SKYBOX/SPHERE
@@ -245,7 +266,9 @@ void SpaceShooterGame::render()
 	m_old_delta = m_new_delta;
 	m_new_delta = ::GetTickCount64();
 
-	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+	//m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+
+	m_delta_time = 1.0f / 60.0f;
 	m_time += m_delta_time;
 }
 
@@ -277,16 +300,30 @@ void SpaceShooterGame::updateSpaceShipMovement()
 	else if (m_spaceship_rot.m_x <= -1.57f)
 		m_spaceship_rot.m_x = -1.57f;
 
+	m_current_cam_rot = Vector3D::lerp(m_current_cam_rot, m_cam_rot, 3.5f * m_delta_time);
 
 	temp.setIdentity();
-	temp.setRotationX(m_spaceship_rot.m_x);
+	temp.setRotationX(m_current_cam_rot.m_x);
 	world_model_spaceShip *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(m_spaceship_rot.m_y);
+	temp.setRotationY(m_current_cam_rot.m_y);
 	world_model_spaceShip *= temp;
 
-	m_spaceship_pos = m_spaceship_pos + world_model_spaceShip.getZDirection() * (m_forward) * 125.0f * m_delta_time+ world_model_spaceShip.getXDirection() * (m_rightward) * 125.0f * m_delta_time;
+	
+
+	if (m_turbo_mode)
+		m_spaceship_speed = 350.0f;
+	else
+		m_spaceship_speed = 125.0f;
+
+	
+
+	m_current_spaceship_rot = Vector3D::lerp(m_current_spaceship_rot, m_spaceship_rot,4.5f*m_delta_time);
+
+	m_spaceship_pos = m_spaceship_pos + world_model_spaceShip.getZDirection() * (m_forward) * m_spaceship_speed * m_delta_time+ world_model_spaceShip.getXDirection() * (m_rightward) *m_spaceship_speed * m_delta_time;
+
+	m_current_spaceship_pos = Vector3D::lerp(m_current_spaceship_pos, m_spaceship_pos, 3.0f * m_delta_time);
 }
 
 void SpaceShooterGame::updateThirdPersonCamera()
@@ -303,17 +340,58 @@ void SpaceShooterGame::updateThirdPersonCamera()
 	else if (m_cam_rot.m_x <= -1.57f)
 		m_cam_rot.m_x = -1.57f;
 
+	m_current_cam_rot = Vector3D::lerp(m_current_cam_rot, m_cam_rot, 3.5f * m_delta_time);
+
 	temp.setIdentity();
-	temp.setRotationX(m_cam_rot.m_x);
+	temp.setRotationX(m_current_cam_rot.m_x);
 	world_cam *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(m_cam_rot.m_y);
+	temp.setRotationY(m_current_cam_rot.m_y);
 	world_cam *= temp;
 
-	m_cam_pos = m_spaceship_pos;
 
-	Vector3D new_pos = m_cam_pos + world_cam.getZDirection() * (-m_cam_distance);
+	if (m_forward) {
+
+
+
+		if (m_turbo_mode) {
+
+			if (m_forward > 0) {
+
+				m_cam_distance = 25.0f;
+			}
+			else {
+
+				m_cam_distance = 5.0f;
+			}
+		}
+		else {
+
+			if (m_forward > 0) {
+
+				m_cam_distance = 16.0f;
+			}
+			else {
+
+				m_cam_distance = 9.0f;
+			}
+		}
+
+		
+	}
+	else {
+
+		m_cam_distance = 14.0f;
+	}
+
+	m_current_cam_distance = lerp(m_current_cam_distance, m_cam_distance, 2.4f * m_delta_time);
+
+
+
+	m_cam_pos = m_current_spaceship_pos;
+
+	Vector3D new_pos = m_cam_pos + world_cam.getZDirection() * (-m_current_cam_distance);
 	new_pos = new_pos + world_cam.getYDirection() * (5.0f);
 
 	world_cam.setTranslation(new_pos);
@@ -340,6 +418,8 @@ void SpaceShooterGame::onUpdate()
 	this->update();
 	this->render();
 
+	m_delta_mouse_x = 0;
+	m_delta_mouse_y = 0;
 }
 
 
@@ -364,7 +444,7 @@ void SpaceShooterGame::onSize()
 {
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->resize(rc.right-rc.left, rc.bottom-rc.top);
-	onUpdate();
+	this->update();
 }
 
 void SpaceShooterGame::onKeyDown(int key)
@@ -389,6 +469,10 @@ void SpaceShooterGame::onKeyDown(int key)
 		//m_rot_y -= 3.14f*m_delta_time;
 		m_rightward = 1.0f;
 	}
+	else if (key == VK_SHIFT)
+	{
+		m_turbo_mode = true;
+	}
 }
 
 void SpaceShooterGame::onKeyUp(int key)
@@ -410,6 +494,10 @@ void SpaceShooterGame::onKeyUp(int key)
 		RECT size_screen = this->getScreenSize();
 
 		m_swap_chain->setFullScreen(m_fullscreen_state, size_screen.right, size_screen.bottom);
+	}
+	else if (key == VK_SHIFT)
+	{
+		m_turbo_mode = false;
 	}
 }
 

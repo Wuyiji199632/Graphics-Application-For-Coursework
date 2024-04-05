@@ -1,10 +1,15 @@
 ﻿  SpaceShooterGame.cpp
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(201,44): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(246,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
-  main.cpp
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\MathUtility.h(4,31): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(61,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(61,67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(61,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(63,106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(65,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(215,44): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\DirectXCoursework\SpaceShooterGame.cpp(267,32): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
   Generating code
-  2 of 2765 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+  2 of 2768 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   DirectXCoursework.vcxproj -> C:\Users\wuyij\Documents\GitHub\Graphics-Application-For-Coursework\DirectXCoursework\x64\Release\DirectXCoursework.exe
