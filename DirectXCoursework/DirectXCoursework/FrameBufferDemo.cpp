@@ -75,15 +75,14 @@ void FrameBufferDemo::render()
 	m_list_materials.push_back(m_sky_mat);
 	drawMesh(m_sky_mesh, m_list_materials);
 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearDepthStencil(this->m_swap_chain
-	);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearDepthStencil(this->m_swap_chain);
 
 
 	m_swap_chain->present(true);
 
 
 	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount();
+	m_new_delta = ::GetTickCount64();
 
 	m_delta_time = 0.0166666666f;// (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
 	m_time += m_delta_time;
