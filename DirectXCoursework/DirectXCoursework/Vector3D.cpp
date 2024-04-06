@@ -25,12 +25,40 @@ Vector3D Vector3D::lerp(const Vector3D& start, const Vector3D& end, float delta)
 	return v;
 }
 
-Vector3D Vector3D::operator*(float num)
+Vector3D Vector3D::operator*(float num) const
 {
 	return Vector3D(m_x * num, m_y * num, m_z * num);
 }
 
-Vector3D Vector3D::operator+(Vector3D vec)
+Vector3D Vector3D::operator+(const Vector3D& vec) const
 {
 	return Vector3D(m_x + vec.m_x, m_y + vec.m_y, m_z + vec.m_z);
+}
+
+Vector3D Vector3D::operator-(const Vector3D& vec) const
+{
+	return Vector3D(m_x - vec.m_x, m_y - vec.m_y, m_z - vec.m_z);
+}
+
+Vector3D Vector3D::normalize(const Vector3D& vec)
+{
+	Vector3D res;
+	float len = sqrt((vec.m_x * vec.m_x) + (vec.m_y * vec.m_y) + (vec.m_z * vec.m_z));
+	if (!len)
+		return Vector3D();
+
+	res.m_x = vec.m_x / len;
+	res.m_y = vec.m_y / len;
+	res.m_z = vec.m_z / len;
+
+	return res;
+}
+
+Vector3D Vector3D::cross(const Vector3D& v1, const Vector3D& v2)
+{
+	Vector3D res;
+	res.m_x = (v1.m_y * v2.m_z) - (v1.m_z * v2.m_y);
+	res.m_y = (v1.m_z * v2.m_x) - (v1.m_x * v2.m_z);
+	res.m_z = (v1.m_x * v2.m_y) - (v1.m_y * v2.m_x);
+	return res;
 }

@@ -77,6 +77,11 @@ void SpaceShooterGame::onCreate()
 	m_asteroid_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\asteroid.jpg");
 	m_asteroid_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\asteroid.obj");
 
+	m_planet_normal_map = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Meshes\\brick_n.jpg");
+	m_planet_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Meshes\\brick_d.jpg");
+	m_planet_mesh_for_test = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Assets\\Meshes\\sphere_hq.obj");
+
+
 
 	m_base_mat = GraphicsEngine::get()->createMaterial(L"DirectionalLightVertexShader.hlsl", L"DirectionalLightPixelShader.hlsl");
 	m_base_mat->setCullMode(CULL_MODE_BACK);
@@ -85,9 +90,14 @@ void SpaceShooterGame::onCreate()
 	m_spaceship_mat->addTexture(m_spaceship_tex);
 	m_spaceship_mat->setCullMode(CULL_MODE_BACK);
 
-	m_asteroid_mat = GraphicsEngine::get()->createMaterial(m_base_mat);
+	m_asteroid_mat = GraphicsEngine::get()->createMaterial(L"DirectionalLightVertexShader.hlsl", L"DirectionalLightPixelShader.hlsl");
 	m_asteroid_mat->addTexture(m_asteroid_tex);
 	m_asteroid_mat->setCullMode(CULL_MODE_BACK);
+
+	m_planet_mat = GraphicsEngine::get()->createMaterial(L"BumpyVS.hlsl", L"BumpyPS.hlsl");
+	m_planet_mat->addTexture(m_planet_tex);
+	m_planet_mat->addTexture(m_planet_normal_map);
+	m_planet_mat->setCullMode(CULL_MODE_BACK);
 
 	m_sky_mat = GraphicsEngine::get()->createMaterial(L"SkyBoxVertexShader.hlsl", L"SkyBoxPixelShader.hlsl");
 	m_sky_mat->addTexture(m_sky_tex);
@@ -95,7 +105,7 @@ void SpaceShooterGame::onCreate()
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
-	m_list_materials.reserve(1024);
+	m_list_materials.reserve(200);
 }
 void SpaceShooterGame::update()
 {
@@ -224,6 +234,24 @@ void SpaceShooterGame::drawMesh(const MeshPtr& mesh, const std::vector<MaterialP
 
 }
 
+void SpaceShooterGame::drawNormalMappedMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials)
+{
+	for (unsigned int m = 0; m < list_materials.size(); m++)
+	{
+		if (m == list_materials.size()) break;
+
+		MaterialSlot mat = mesh->getMaterialSlot(m);
+
+		GraphicsEngine::get()->setMaterial(list_materials[m]);
+		//SET THE VERTICES OF THE TRIANGLE TO DRAW
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(mesh->getVertexBuffer());
+		//SET THE INDICES OF THE TRIANGLE TO DRAW
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(mesh->getIndexBuffer());
+		// FINALLY DRAW THE TRIANGLE
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList((UINT)mat.num_indices, 0, (UINT)mat.start_index);
+	}
+}
+
 void SpaceShooterGame::render()
 {
 	//CLEAR THE RENDER TARGET 
@@ -237,6 +265,14 @@ void SpaceShooterGame::render()
 	m_list_materials.push_back(m_spaceship_mat);
 	updateModel(m_current_spaceship_pos, m_current_spaceship_rot, Vector3D(1, 1, 1), m_list_materials);
 	drawMesh(m_spaceship_mesh, m_list_materials);
+
+
+	//DRAW THE TEST PLANET
+	/*m_list_materials.clear();
+	m_list_materials.push_back(m_planet_mat);
+	updateModel(Vector3D(0, 0, 0), Vector3D(), Vector3D(1, 1, 1), m_list_materials);
+	drawNormalMappedMesh(m_planet_mesh_for_test, m_list_materials);*/
+
 
 
 	

@@ -59,7 +59,7 @@ MeshManager* GraphicsEngine::getMeshManager()
 	return m_mesh_manager;
 }
 
-void GraphicsEngine::getVertexMeshLayoutShaderByCodeAndSize(void** byte_code, size_t* size)
+void GraphicsEngine::getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size)
 {
 	*byte_code = m_mesh_layout_byte_code;
 	*size = m_mesh_layout_size;

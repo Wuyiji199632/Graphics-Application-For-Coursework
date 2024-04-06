@@ -46,6 +46,18 @@
     <Filter Include="Header Files\Demo2%28Space Shooter%29">
       <UniqueIdentifier>{9ac64b9b-cbcc-4425-b206-6ad7d18d66ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\BumpMappingDemo">
+      <UniqueIdentifier>{99119bb3-bf22-4eeb-a1e2-550e3c1dffef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders\Normal-based Shaders">
+      <UniqueIdentifier>{ecf0de6b-b79b-4e40-9ea5-0adf00ffe20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrameBufferDemo">
+      <UniqueIdentifier>{bf7c6cbf-faa5-4f6a-92fa-ca46b1be456a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FrameBufferDemo">
+      <UniqueIdentifier>{5060dda3-e245-40aa-883e-f1ac1a404753}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -138,6 +150,18 @@
     <ClInclude Include="MathUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BumpyMapping.h">
+      <Filter>App\BumpMappingDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferDemo.h">
+      <Filter>Header Files\FrameBufferDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame.h">
+      <Filter>Header Files\FrameBufferDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp">
@@ -224,6 +248,15 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BumpyMapping.cpp">
+      <Filter>App\BumpMappingDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBufferDemo.cpp">
+      <Filter>Source Files\FrameBufferDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame.cpp">
+      <Filter>Source Files\FrameBufferDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexMeshLayoutShader.hlsl">
@@ -258,6 +291,12 @@
     </FxCompile>
     <FxCompile Include="SkyboxPixelShader.hlsl">
       <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="BumpyVS.hlsl">
+      <Filter>GameEngine\Shaders\Normal-based Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="BumpyPS.hlsl">
+      <Filter>GameEngine\Shaders\Normal-based Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

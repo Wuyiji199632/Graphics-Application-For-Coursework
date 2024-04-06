@@ -27,6 +27,7 @@ public:
 	void updateModel(Vector3D position, Vector3D rotation, Vector3D scale, const std::vector<MaterialPtr>& list_materials);
 	void updateSkybox();
 	void drawMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials);
+	void drawNormalMappedMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials);
 	void render();
 	void updateLight();
 	void updateSpaceShipMovement();
@@ -67,6 +68,10 @@ private:
 	MaterialPtr m_sky_mat;
 
 	MaterialPtr m_base_mat;
+
+	TexturePtr m_planet_normal_map,m_planet_tex;
+	MeshPtr m_planet_mesh_for_test;
+	MaterialPtr m_planet_mat;
 
 private:
 	long m_old_delta;
