@@ -1,0 +1,15 @@
+﻿  GraphicsEngine.cpp
+C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\DX3D\Include\DX3D\Math\Matrix4x4.h(106,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'DX3D/Source/DX3D/Graphics/GraphicsEngine.cpp')
+  
+C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\DX3D\Include\DX3D\Math\Matrix4x4.h(107,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'DX3D/Source/DX3D/Graphics/GraphicsEngine.cpp')
+  
+C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\DX3D\Include\DX3D\Math\Matrix4x4.h(108,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'DX3D/Source/DX3D/Graphics/GraphicsEngine.cpp')
+  
+C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\DX3D\Include\DX3D\Math\Matrix4x4.h(109,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'DX3D/Source/DX3D/Graphics/GraphicsEngine.cpp')
+  
+C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\DX3D\Source\DX3D\Graphics\GraphicsEngine.cpp(97,79): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  DirectXGame.vcxproj -> C:\Users\josdd\Downloads\Graphics-Application-For-Coursework-main\Graphics-Application-For-Coursework-main\DirectXCoursework\DirectX_Game_Final_Template\x64\Debug\DirectXGame.exe

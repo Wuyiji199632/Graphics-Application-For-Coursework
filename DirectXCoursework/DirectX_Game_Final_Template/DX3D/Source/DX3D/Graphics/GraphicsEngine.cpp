@@ -1,6 +1,5 @@
-
 #include <DX3D/Graphics/GraphicsEngine.h>
-
+#include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/SwapChain.h>
 
@@ -11,9 +10,17 @@
 
 #include <DX3D/Game/Game.h>
 #include <DX3D/Game/Display.h>
-#include <DX3D/Game/World.h>
+
 #include <DX3D/Math/Matrix4x4.h>
-#include<DX3D/Math/Vector4D.h>
+#include <DX3D/Math/Vector4D.h>
+
+#include <DX3D/Entity/Component/TransformComponent.h>
+#include <DX3D/Entity/Component/MeshComponent.h>
+#include <DX3D/Entity/Component/CameraComponent.h>
+#include <DX3D/Entity/Component/LightComponent.h>
+#include <DX3D/Entity/Component/TerrainMeshComponent.h>
+
+#include <DX3D/Entity/Entity.h>
 
 __declspec(align(16))
 struct LightData
@@ -63,46 +70,31 @@ void GraphicsEngine::update()
 
 	ConstantData constData = {};
 
-	
-	constData.view.setIdentity();
-	constData.proj.setIdentity();
-
-	
-
-	constData.view.setTranslation(Vector3D(0, 0, -10.0f));
-	constData.view.inverse();
-
-	constData.proj.setPerspectiveFovLH(1.3f, (float)winSize.width / (float)winSize.height, 0.01f, 1000.0f);
-
-
 	for (auto c : m_cameras)
 	{
 		auto t = c->getEntity()->getTransform();
 		constData.camera_pos = t->getPosition();
-
 		c->setScreenArea(winSize);
 		c->getViewMatrix(constData.view);
 		c->getProjectionMatrix(constData.proj);
 	}
+
+
 	for (auto l : m_lights)
 	{
-
 		auto t = l->getEntity()->getTransform();
-		Matrix4x4 world;
-		t->getWorldMatrix(world);
-		constData.light.direction = world.getZDirection();
+		Matrix4x4 w;
+		t->getWorldMatrix(w);
+		constData.light.direction = w.getZDirection();
 		constData.light.color = l->getColor();
 	}
 
-	for (auto t : m_terrains) {
-
+	for (auto t : m_terrains)
+	{
 		auto transform = t->getEntity()->getTransform();
-
 		transform->getWorldMatrix(constData.world);
-
 		constData.terrain.size = t->getSize();
 		constData.terrain.heightMapSize = t->getHeightMap()->getTexture()->getSize().width;
-
 
 		context->setVertexBuffer(t->m_meshVb);
 		context->setIndexBuffer(t->m_meshIb);
@@ -114,27 +106,23 @@ void GraphicsEngine::update()
 		context->setVertexShader(t->m_vertexShader);
 		context->setPixelShader(t->m_pixelShader);
 
-		Texture2DPtr terrainTextures[1];
-		terrainTextures[0] = t->getHeightMap()->getTexture();
-		terrainTextures[1] = t->getGroundMap()->getTexture();
-		terrainTextures[2] = t->getCliffMap()->getTexture();
+		Texture2DPtr terrainTexture[3];
+		terrainTexture[0] = t->getHeightMap()->getTexture();
+		terrainTexture[1] = t->getGroundMap()->getTexture();
+		terrainTexture[2] = t->getCliffMap()->getTexture();
 
-		context->setTexture(terrainTextures, 1);
+		context->setTexture(terrainTexture, 3);
 
-		context->drawIndexedTriangleList((UINT)t->m_meshIb->getSizeIndexList(), 0, 0);
+		context->drawIndexedTriangleList((ui32)t->m_meshIb->getSizeIndexList(), 0, 0);
 	}
 
-
-
-	for (auto m : m_meshes) {
-
+	for (auto m : m_meshes)
+	{
 		auto transform = m->getEntity()->getTransform();
-
 		transform->getWorldMatrix(constData.world);
 
 		auto mesh = m->getMesh().get();
 		const auto materials = m->getMaterials();
-
 
 
 		context->setVertexBuffer(mesh->m_vertex_buffer);
@@ -143,8 +131,9 @@ void GraphicsEngine::update()
 
 		for (auto i = 0; i < mesh->getNumMaterialSlots(); i++)
 		{
-			if (i >= materials.size())break;
+			if (i >= materials.size()) break;
 			auto mat = materials[i].get();
+
 			m_render_system->setCullMode(mat->getCullMode());
 
 			mat->setData(&constData, sizeof(ConstantData));
@@ -159,8 +148,6 @@ void GraphicsEngine::update()
 			context->drawIndexedTriangleList((unsigned int)slot.num_indices, (unsigned int)slot.start_index, 0);
 		}
 	}
-
-	
 
 	swapChain->present(true);
 }
