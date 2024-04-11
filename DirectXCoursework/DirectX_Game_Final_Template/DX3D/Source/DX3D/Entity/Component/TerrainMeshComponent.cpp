@@ -71,40 +71,48 @@ void TerrainMeshComponent::onCreateInternal()
 
 void TerrainMeshComponent::generateTerrainMesh()
 {
-	const UINT w = 512; const UINT h = 512;
-	const UINT ww = w - 1; const UINT hh = h - 1;
+    const ui32 w = 512;//Width Terrain and amount of verties on the x
+    const ui32 h = 512;//Height Terrain and amount of verties on the y
 
-	auto i = 0;
-	VertexMesh* terrainMeshVerticies = new VertexMesh[w * h];
-	UINT* terrainMeshIndicies = new UINT[ww * hh * 6];
+    const ui32 ww = w - 1; //number of quads on the x
+    const ui32 hh = h - 1; //number of quads on the y
 
-	for (unsigned int x = 0; x < w; x++) {
 
-		for (unsigned int y = 0; y < h; y++) {
+    VertexMesh* terrainMeshVertices = new VertexMesh[w * h];//Will hold the data fro each vertex
+    ui32* terrainMeshIndices = new ui32[ww * hh * 6];//Total Amount of indices
 
-			terrainMeshVerticies[y * w + x] = { Vector3D((f32)x/(f32)ww,0,(f32)y/(f32)hh),Vector2D((f32)x/(f32)ww,(f32)y/(f32)hh),Vector3D(),Vector3D(),Vector3D()};
+    auto i = 0;
+    for (ui32 x = 0; x < w; x++)
+    {
+        for (ui32 y = 0; y < h; y++)
+        {
+            terrainMeshVertices[y * w + x] = {
+                Vector3D((f32)x / (f32)ww, 0,(f32)y / (f32)hh),
+                Vector2D((f32)x / (f32)ww, (f32)y / (f32)hh),
+                Vector3D(),
+                Vector3D(),
+                Vector3D()
+            };
 
-			if (x < ww && y < hh) {
+            if (x < ww && y < hh) // if x and y are less than w - 1
+            {
+                terrainMeshIndices[i + 0] = (y + 1) * w + (x);
+                terrainMeshIndices[i + 1] = (y) * w + (x);
+                terrainMeshIndices[i + 2] = (y) * w + (x + 1);
 
-				terrainMeshIndicies[i] = (y + 1) * w + (x);
-				terrainMeshIndicies[i+1] = (y) * 4 + (x);
-				terrainMeshIndicies[i+2] = (y) * 4 + (x+1);
-				terrainMeshIndicies[i+3] = (y) * 4 + (x+1);
-				terrainMeshIndicies[i+4] = (y + 1) * 4 + (x+1);
-				terrainMeshIndicies[i+5] = (y + 1) * 4 + (x);
-				i += 6;
+                terrainMeshIndices[i + 3] = (y)*w + (x + 1);
+                terrainMeshIndices[i + 4] = (y + 1) * w + (x + 1);
+                terrainMeshIndices[i + 5] = (y + 1) * w + (x);
+                i += 6;
+            }
+        }
+    }
 
-			}
-		}
-		
-	}
+    auto renderSytem = m_entity->getWorld()->getGame()->getGraphicsEngine()->getRenderSystem();
+    m_meshVb = renderSytem->createVertexBuffer(terrainMeshVertices, sizeof(VertexMesh), w * h);
+    m_meshIb = renderSytem->createIndexBuffer(terrainMeshIndices, ww * hh * 6);
 
-	auto renderSystem = m_entity->getWorld()->getGame()->getGraphicsEngine()->getRenderSystem();
-	m_meshVb = renderSystem->createVertexBuffer(terrainMeshIndicies, sizeof(VertexMesh),w*h);
-	m_meshIb = renderSystem->createIndexBuffer(terrainMeshIndicies, ww * hh * 6);
-
-	m_vertexShader = renderSystem->createVertexShader(L"Assets/Shaders/TerrainShader.hlsl","vsmain");
-
-	m_pixelShader = renderSystem->createPixelShader(L"Assets/Shaders/TerrainShader.hlsl", "psmain");
+    m_vertexShader = renderSytem->createVertexShader(L"Assets/Shaders/TerrainShader.hlsl", "vsmain");
+    m_pixelShader = renderSytem->createPixelShader(L"Assets/Shaders/TerrainShader.hlsl", "psmain");
 
 }
