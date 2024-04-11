@@ -1,0 +1,10 @@
+.vs/
+.ipch
+*.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/2b16c6f1fadae50a/SWAPCHAIN.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/7b95ef36e65ea117/DEVICECONTEXT.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/8290e0f161a370e8/VERTEXBUFFER.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/b82be390e13ef961/MAIN.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/ce003c0c10156e80/WINDOW.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/d3f40719c76e541b/PIXELSHADER.ipch
+DirectXCoursework/.vs/DirectXCoursework/v17/ipch/AutoPCH/f0c9f655de373d8f/VERTEXSHADER.ipch
