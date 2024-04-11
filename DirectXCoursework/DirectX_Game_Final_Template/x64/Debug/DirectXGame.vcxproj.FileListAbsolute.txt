@@ -1,3 +1,0 @@
-C:\Users\wuyij\Desktop\阿伯泰课件以及干货\Advanced Procedural Methods\ParCodeSourceCodes\DirectXGame_Tut31\x64\Debug\DirectXGame.exe
-C:\Users\wuyij\Desktop\阿伯泰课件以及干货\Advanced Procedural Methods\ParCodeSourceCodes\DirectX_Game_Final\x64\Debug\DirectXGame.exe
-C:\Users\wuyij\Desktop\阿伯泰课件以及干货\Advanced Procedural Methods\ParCodeSourceCodes\DirectX_Game_Final_Template\x64\Debug\DirectXGame.exe
